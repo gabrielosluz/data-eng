@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Análise Exploratória de Dados com Python: Extraindo insights do FIFA 18 | Home</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.71.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="https://gabrielosluz.github.io/data-eng/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Análise Exploratória de Dados com Python: Extraindo insights do FIFA 18" />
+<meta property="og:description" content="Tutorial sobre como usar Pyhton para analisar uma base de dados de jogadores do FIFA 2018" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gabrielosluz.github.io/data-eng/post/projeto1/" />
+<meta property="article:published_time" content="2017-04-09T10:58:08-04:00" />
+<meta property="article:modified_time" content="2017-04-09T10:58:08-04:00" />
+<meta itemprop="name" content="Análise Exploratória de Dados com Python: Extraindo insights do FIFA 18">
+<meta itemprop="description" content="Tutorial sobre como usar Pyhton para analisar uma base de dados de jogadores do FIFA 2018">
+<meta itemprop="datePublished" content="2017-04-09T10:58:08-04:00" />
+<meta itemprop="dateModified" content="2017-04-09T10:58:08-04:00" />
+<meta itemprop="wordCount" content="2736">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Análise Exploratória de Dados com Python: Extraindo insights do FIFA 18"/>
+<meta name="twitter:description" content="Tutorial sobre como usar Pyhton para analisar uma base de dados de jogadores do FIFA 2018"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  
+  
+  <header class="cover bg-top" style="background-image: url('https://gabrielosluz.github.io/data-eng/images/fifa18.jpg');">
+    <div class="pb3-m pb6-l bg-black-60">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://gabrielosluz.github.io/data-eng/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Home
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="https://gabrielosluz.github.io/data-eng/contact/" title="Contato page">
+              Contato
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="https://gabrielosluz.github.io/data-eng/post/" title="Projetos page">
+              Projetos
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="https://gabrielosluz.github.io/data-eng/about/" title="Sobre mim page">
+              Sobre mim
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+<a href="https://twitter.com/GoHugoIO" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+<a href="https://www.linkedin.com/in/gabriel-luz/" target="_blank" class="link-transition linkedin link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" rel="noopener" aria-label="follow on LinkedIn——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://github.com/gabrielosluz" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+<a href="https://medium.com/mundo-ia" target="_blank" class="link-transition medium link dib z-999 pt3 pt0-l mr1" title="Medium link" rel="noopener" aria-label="follow on Medium——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 170 170;" version="1.1" viewBox="0 0 170 170" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M46.5340803,65.2157554 C46.6968378,63.6076572 46.0836,62.018231 44.8828198,60.93592 L32.6512605,46.2010582 L32.6512605,44 L70.6302521,44 L99.9859944,108.380952 L125.794585,44 L162,44 L162,46.2010582 L151.542017,56.2281011 C150.640424,56.9153477 150.193188,58.0448862 150.380019,59.1628454 L150.380019,132.837155 C150.193188,133.955114 150.640424,135.084652 151.542017,135.771899 L161.755369,145.798942 L161.755369,148 L110.38282,148 L110.38282,145.798942 L120.963119,135.527337 C122.002801,134.487948 122.002801,134.182246 122.002801,132.592593 L122.002801,73.0417402 L92.585901,147.755438 L88.6106443,147.755438 L54.3622782,73.0417402 L54.3622782,123.115814 C54.0767278,125.221069 54.7759199,127.3406 56.2581699,128.863022 L70.0186741,145.55438 L70.0186741,147.755438 L31,147.755438 L31,145.55438 L44.7605042,128.863022 C46.2319621,127.338076 46.8903838,125.204485 46.5340803,123.115814 L46.5340803,65.2157554 Z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv6 ph3 ph4-ns">
+        
+          <h1 class="f2 f1-l fw2 white-90 mb0 lh-title">Análise Exploratória de Dados com Python: Extraindo insights do FIFA 18</h1>
+          
+            <h2 class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
+              Tutorial sobre como usar Pyhton para analisar uma base de dados de jogadores do FIFA 2018
+            </h2>
+          
+        
+      </div>
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        PROJETOS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://gabrielosluz.github.io/data-eng/post/projeto1/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://gabrielosluz.github.io/data-eng/post/projeto1/&amp;text=An%c3%a1lise%20Explorat%c3%b3ria%20de%20Dados%20com%20Python:%20Extraindo%20insights%20do%20FIFA%2018" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://gabrielosluz.github.io/data-eng/post/projeto1/&amp;title=An%c3%a1lise%20Explorat%c3%b3ria%20de%20Dados%20com%20Python:%20Extraindo%20insights%20do%20FIFA%2018" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Análise Exploratória de Dados com Python: Extraindo insights do FIFA 18</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2017-04-09T10:58:08-04:00">April 9, 2017</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Olá, bem vindo!</p>
+<p>Neste artigo vamos aprender a fazer uma tarefa muito importante no dia-a-dia de um Cientista de Dados. Faremos uma Análise Exploratória de Dados (do inglês, EDA). Para isso vamos fazer uso da linguagem de programação Python, através da distribuição Anaconda e da IDE Spyder.</p>
+<h2 id="introdução">Introdução</h2>
+<p>Antes de mais nada, vamos definir o que exatamente é essa tal de EDA e por que, no meio de tantas coisas legais para se fazer com Machine Learning estamos nos preocupando com isso.</p>
+<p>Basicamente EDA é a tarefa de se examinar os dados de uma base previamente à aplicação de qualquer outra técnica. Essa ação é importante pois permite que o Cientista de Dados tenha um entendimento básico do dataset que está trabalhando e das relações existentes entre as variáveis. Isso é feito empregando técnicas de análise gráficas e de estatística descritiva com objetivo de obter o máximo de informações ocultas.</p>
+<p>Você já se deparou com uma base de dados e ficou curioso sobre certas características de algumas variáveis? Já elaborou hipóteses sobre esses dados mas não soube como valida-las? São questões como essas que a Análise Exploratória busca responder.
+A EDA definitivamente é uma etapa muito importante para um projeto de Data Science ser bem sucedido.</p>
+<h2 id="fonte-de-dados">Fonte de dados</h2>
+<p>Para este pequeno tutorial eu decidi pegar uma base de dados em uma das fontes mais conhecidas no mundo dos Cientistas de Dados, o Kaggle. Esse site começou em 2010, funcionando como uma plataforma onde empresas e pesquisadores publicavam datasets e os usuários competiam entre si para criar os melhores modelos preditivos. Em março de 2017 foi comprado pelo Google. Hoje em dia é um portal repleto de conteúdo e é referência na área de Data Science.</p>
+<p>Para nossa tarefa de EDA decidi trabalhar com a base de dados do FIFA 2018, um dos jogos de video-game mais famosos do mundo. Essa base possui dados de todos os jogadores do game bem como mais de 70 atributos. Sem mais delongas, vamos codar!</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/kagglecop.png" alt="alt text"></p>
+<h2 id="importando-e-tratando-os-dados">Importando e tratando os dados</h2>
+<p>Como sempre, a primeira coisa que iremos fazer é importar todas as bibliotecas que serão úteis ao longo do código. A medida que cada uma for sendo usada eu explico.</p>
+<pre><code class="language-{r" data-lang="{r">import pandas as pd
+import re
+from bokeh.charts import Histogram, show
+import seaborn as sns
+import numpy as np
+</code></pre><p>Vamos começar usando a função read_csv(), da biblioteca pandas, para importar nossos dados. O pandas é a principal biblioteca para manipulação de dados no Python, é o equivalente da dplyr da linguagem R. Para importar a base no Spyder usaremos o código abaixo:</p>
+<pre><code class="language-{python}" data-lang="{python}">data = pd.read_csv('C:\\Users\\Gabriel Luz\\Desktop\\DataScience\\Projetos\\03\\fifa-18-demo-player-dataset\\CompleteDataset.csv', sep=',', encoding='utf-8')
+</code></pre><p>Armazenamos a base no objeto chamado de data. Chamamos a função read_csv() e foi passado como primeiro parâmetro o diretório onde a base de dados está localizada. O Pandas possui uma rica documentação. Sugiro sempre dar uma olhada no site oficial antes de usar qualquer função desconhecida. Neste link você encontra tudo o que precisa saber sobre a read_csv(). Vamos dar uma olhada nos primeiros registros do objeto data:</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/tabelaumfifa.jpg" alt="alt text"></p>
+<p>Como podemos ver, existem colunas com URLs, as quais não nos interessam. Vamos implementar algumas mudanças na base. Primeiro vamos deletar todas as colunas que não iremos usar:</p>
+<pre><code class="language-{python}" data-lang="{python}">#excluindo algumas colunas que não são de interesse
+
+data.drop(['Unnamed: 0','Photo','Flag','Club Logo'], axis = 1, inplace = True)
+</code></pre><p>Em seguida, usamos o comando data.dtypes (verifica o tipo dado em cada coluna) para constatar que a coluna Wage (salário) está como string. Perceba que os registros dessa coluna estão todos seguidos de K, exemplo, Cristiano Ronaldo — 565 K; Neymar — 280 K. Vamos então tirar esse K e transformar todos os registros para o tipo numérico:</p>
+<pre><code class="language-{python}" data-lang="{python}">#renomeando a coluna Wage para salario e alterando-a para ser do tipo numérico
+
+data['salario'] = data['Wage'].map(lambda x : re.sub('[^0-9]+', '', x)).astype('float64')
+</code></pre><p>Usando mais uma vez a função data.dtypes, percebemos que existem algumas colunas que estão como string (object) mas deveriam estar como número, como é o caso de Acceleration, Agility entre outras. Vamos então tentar passar essas colunas para o tipo inteiro usando o método mais fácil:</p>
+<pre><code class="language-{python}" data-lang="{python}">data.Agility.astype(int)
+</code></pre><p>Isso resultará na seguinte mensagem de erro: ValueError: invalid literal for int() with base 10: ’60+6′. Bizarramente muitas colunas possuem valores como esse, um X+Y no lugar de um número. Vamos então criar uma função para transformar todo valor que está dessa forma para um número:</p>
+<pre><code class="language-{python}" data-lang="{python}">#colocando colunas estranhas para o formato desejado
+
+def transform(value):
+   out = str(value)
+   if '+' in out:
+      a,b = out.split('+')
+      out = int(a)+int(b)
+   elif '-' in out:
+      a,b = out.split('-')
+     if len(a)== 0: out = -1
+     else: out = int(a)-int(b)
+  elif out == '':
+      out = 0
+return float(out)
+</code></pre><p>Usaremos um loop for para percorrer todas as colunas (9 até a 44) que possuem esse tipo de problema:
+Pronto! Passamos da fase de preparação dos dados. Vamos agora entrar na análise propriamente dita. A partir desse ponto, se você tem conhecimento de SQL, verá muitas semelhanças entre algumas funções da biblioteca Pandas e as ferramentas de banco de dados.
+A primeira informação útil que iremos extrair da base de dados é a quantidade nacionalidades sendo representadas:</p>
+<pre><code class="language-{python}" data-lang="{python}">#quantidade total de países
+#a função nunique retorna a quantidade de valores únicos em um objeto
+
+data.Nationality.nunique()
+#output: 165
+</code></pre><p>Vamos agora descobrir os países com maior número de jogadores. Podemos fazer isso de duas formas:</p>
+<pre><code class="language-{python}" data-lang="{python}">#1
+data['Nationality'].value_counts()
+
+#2
+pd.value_counts(data['Nationality'])
+</code></pre><p>As duas linhas de código retornam as mesma lista com o número de jogadores para cada país. Os que possuem a maior quantidade de representantes são:</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/tabeladois.jpg" alt="alt text"></p>
+<p>Agora vamos dar uma olhada na variável Age:</p>
+<pre><code class="language-{python}" data-lang="{python}">#media de idades
+
+data.Age.mean()
+</code></pre><p>Temos que a média de idade é 25.14 anos. Vamos tentar descobrir quantos representantes para cada idade existem:</p>
+<pre><code class="language-{python}" data-lang="{python}">#quantidade de jogadores por idade
+
+data['Age'].value_counts()
+</code></pre><p>Que resulta na seguinte lista:</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/tabelatres.jpg" alt="alt text"></p>
+<p>Surpreendentemente existe um jogador de 47 anos! Podemos fazer também para a média de idade por clube:</p>
+<pre><code class="language-{python}" data-lang="{python}">#media de idade por club
+
+mediaPorClub = data.groupby('Club').Age.mean()
+</code></pre><p>Utilizando a função group by, do Pandas, fomos capazes de agrupar a média de idade por clube e armazenar os valores em uma serie (objeto semelhante a um dataframe mas que possui somente uma coluna além do index) chamada de mediaPorClub:</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/tabelaquatro.jpg" alt="alt text"></p>
+<p>Nesta parte do dataframe podemos ver que a média de Idade no Botafogo fica em torno de 29 anos, enquanto que no Boca Juniors é na casa dos 24. Navegando por esse dataframe podemos ver a média de todos os clubes.
+Usando somente a função group by podemos tirar diversos insights interessantes:</p>
+<pre><code class="language-{python}" data-lang="{python}">#media de salario/semana
+data.salario.mean()
+
+#média de salário por clube
+mediaSalarioPorClub = data.groupby('Club').salario.mean()
+
+#quanto cada clube gasta com salarios
+#o sort_values foi usado para ordenar os valores do maior para o menor
+gastoComSalario = data.groupby('Club').salario.sum().sort_values(ascending = False)
+
+#overall por idade
+RatingPorIdade = data.groupby('Age').Overall.agg(['min','max','mean'])
+
+#potencial por idade
+potencialPorIdade = data.groupby('Age').Potential.agg(['min','max','mean'])
+</code></pre><p>Nas últimas duas linhas usamos a função agg() para juntar os valores selecionados dentro dos colchetes, no caso: valor mínimo, máximo e a média. A coluna Overall significa a nota geral de cada atleta e o potencial, obviamente, representa uma expectativa de desempenho futuro do atleta.</p>
+<h2 id="respondendo-perguntas-pontuais">Respondendo perguntas pontuais</h2>
+<p>Agora vamos buscar responder algumas perguntas pontuais e para isso, faremos bastante uso da função group by.</p>
+<ul>
+<li>Quais são os melhores clubes baseado na média de Overall?</li>
+</ul>
+<pre><code class="language-{python}" data-lang="{python}">#Quais clubes possuem as melhores médias de Overall?
+
+mediaOverallPorClub = data.groupby('Club').Overall.mean().sort_values(ascending = False)
+</code></pre><p>Fizemos basicamente o mesmo dos comandos anteriores. Agrupamos as médias de Overall por Club através do group by, ordenamos os valores de forma decrescente e guardamos o output numa serie chamada de mediaOverallPorClub, que ficou assim:</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/tabelacinco.jpg" alt="alt text"></p>
+<p>Seguindo essa lógica, descobrimos que os melhores clubes são o Barcelona, Juventus e Real Madrid. Porém, calcular os melhores clubes pela média pode não ser uma boa ideia, por conta da presença de outliers (pontos que destoam dos demais). Por exemplo, com certeza o Overall do Messi e do Cristiano Ronaldo influenciaram nesse cálculo, pois são de fato, jogadores incomuns. Vamos descobrir os melhores clubes de outra forma daqui a pouco. Por enquanto, vamos para a próxima pergunta.</p>
+<ul>
+<li>Quais os jogadores com maior precisão no cabeceio?</li>
+</ul>
+<p>Para responder essa pergunta, só precisamos ordenar os valores da coluna referente ao cabeceio fazendo uso da função sort_values().</p>
+<pre><code class="language-{python}" data-lang="{python}">#Quais os jogadores com maior precisão de cabeceio?
+
+cabeceio = data.sort_values(by='Heading accuracy',ascending = False)
+</code></pre><p>Desta vez, armazenamos o resultado em um outro dataframe, chamado de cabeceio, que está ordenado da melhor nota para a pior:</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/tabelasete.jpg" alt="alt text"></p>
+<ul>
+<li>Quais os goleiros com melhores reflexos?</li>
+</ul>
+<pre><code class="language-{python}" data-lang="{python}">#Goleiros com melhores reflexos
+
+data['posicao'] = data['Preferred Positions']
+goleiros = data[data.posicao.str.contains('GK')== True]
+reflexosMelhoresGoleiros = goleiros.sort_values(by='GK reflexes',ascending = False )
+</code></pre><p>Para esta pergunta fizemos uma alteração no objeto data. Criamos uma nova coluna, chamada de posição, que é uma cópia da Preferred Positions. Fizemos isso para usar com mais facilidade, na linha debaixo, uma string method, que é basicamente um conjunto de funções do Pandas feitas para se trabalhar com variáveis textuais. Você pode encontrar todas essas funções nesse link. Com o comando goleiros = data[data.posicao.str.contains(‘GK’)== True], selecionamos todos os registros que possuem o código GK, que se refere a posição de goleiro e com isso, colocamos todos os atletas que ocupam essa posição no dataframe que chamamos de goleiros. Então, usamos mais uma vez a função sort_values() para ordenador da maior nota no quesito reflexo, para a menor e a armazenamos na serie chamada de reflexosMelhoresGoleiros:</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/tabelaseis.jpg" alt="alt text"></p>
+<p>Surpreendentemente vemos o goleiro campeão do mundo pela Alemanha, Manuel Neuer, aparecer somente na quarta posição.
+Podemos usar a função sort_values() para descobrir os melhores em diversos atributos, como o jogador mais rápido e o que possui maior potência no chute:</p>
+<pre><code class="language-{python}" data-lang="{python}">#Quais os jogadores com maior potencia de chute?
+potenciaChute = data.sort_values(by='Shot power',ascending = False )
+
+#Quais os jogadores mais rápidos?
+velocidade = data.sort_values(by='Sprint speed',ascending = False )
+</code></pre><ul>
+<li>Qual é o melhor time?</li>
+</ul>
+<p>Agora a pergunta mais curiosa de todos! O primeiro passo para responde-la é fazer mais uma alteração no nosso dataframe principal. Vamos deixar a coluna Preferred Positions somente com a melhor posição onde o jogador atua (anteriormente ela estava com todas as posições onde o jogador poderia atuar). Para isso faremos uso mais uma vez de uma função para strings:</p>
+<pre><code class="language-{python}" data-lang="{python}">data['Preferred Position'] = data['Preferred Positions'].str.split().str[0]
+</code></pre><p>Agora a coluna Preferred Positions possui somente um registro para cada jogador. Para descobrir os melhores em cada posição, vamos fazer uso de uma função criada por um usuário Kaggle lá de Hong Kong. Este é o link do perfil dele.</p>
+<pre><code class="language-{python}" data-lang="{python}">def get_best_squad(position):
+    data_copy = data.copy()
+    store = []
+    for i in position:
+       store.append([i,data_copy.loc[[data_copy[data_copy['Preferred  Position']    == i]['Overall'].idxmax()]]['Name'].to_string(index = False),       data_copy[data_copy['Preferred Position'] == i]['Overall'].max()])
+data_copy.drop(data_copy[data_copy['Preferred Position'] == i]['Overall'].idxmax(), inplace = True)
+    #return store
+    return pd.DataFrame(np.array(store).reshape(11,3), columns = ['Position', 'Player', 'Overall']).to_string(index = False)
+</code></pre><p>Essa função basicamente recebe uma lista de posições (position) como parâmetro e então percorre uma cópia do dataframe principal para buscar os jogadores com nota mais alta em cada uma das posições selecionadas na lista. Cada posição possui um código, como a do goleiro, que é GK. Por exemplo, atacante é ST, CDM é volante defensivo, CM é meia etc.
+Tendo executado a função get_best_squad, podemos descobrir os melhores times para cada formação em campo (4–3–3, 3–5–2, 4–4–2 etc). Vamos começar com a formação 4–3–3:</p>
+<pre><code class="language-{python}" data-lang="{python}"># 4-3-3
+squad_433 = ['GK', 'LB', 'CB', 'CB', 'RB', 'LM', 'CDM', 'RM', 'LW', 'ST', 'RW']
+print ('4-3-3')
+print (get_best_squad(squad_433))
+</code></pre><p>Temos que o melhor time é:</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/tabelaoito.jpg" alt="alt text"></p>
+<p>Para a formação 3–5–2, temos que o melhor time é:</p>
+<pre><code class="language-{python}" data-lang="{python}">#para o esquema 3-5-2
+squad_352 = ['GK', 'LWB', 'CB', 'RWB', 'LM', 'CDM', 'CAM', 'CM', 'RM', 'LW', 'RW']
+print ('3-5-2')
+print (get_best_squad(squad_352))
+</code></pre><p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/tabelanovee.jpg" alt="alt text"></p>
+<h2 id="visualizações">Visualizações</h2>
+<p>Agora vamos fazer uso de alguns recursos gráficos que o Python nos oferece. Usando os recursos de plotagem nativos do Pandas:</p>
+<pre><code class="language-{python}" data-lang="{python}">#distribuições
+
+data.Age.plot(kind='hist', bins=20)
+data.Overall.plot(kind='hist', bins=20)
+</code></pre><p>Perceba que escolhi como tipo de gráfico o histograma. Ele é um tipo de visualização muito simples que nos permite observar a distribuição de valores para uma única variável. Quando analisamos a distribuição dos dados não nos interessa valores individuais. Diferentemente do gráfico de barras, que tem como objetivo representar valores absolutos. A últimas duas linhas de código resultam nas seguintes visualizações:</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/graficoum.jpg" alt="alt text"></p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/graficodois.jpg" alt="alt text"></p>
+<p>Como era de se esperar, os dois gráficos mostraram distribuições que se aproximam da normal. Podemos melhorar a qualidade das visualizações fazendo uso de bibliotecas próprias para tal, como a Bokeh, que importamos no início do código. Vamos ver como se comporta a distribuição de idade nos melhores clubes:</p>
+<pre><code class="language-{python}" data-lang="{python}">#histograma melhorado
+# entre os melhores times
+
+melhoresClubs = data[(data.Club == 'FC Barcelona') | (data.Club == 'Juventus') | (data.Club == 'Real Madrid CF') | (data.Club == 'FC Bayern Munich') | (data.Club == 'Paris Saint-Germain') ]
+hist = Histogram(data=melhoresClubs, values=&quot;Age&quot;, color=&quot;Club&quot;, legend=&quot;top_right&quot;, bins=12)
+show(hist)
+</code></pre><p>Esse código resulta em uma bela visualização oriunda de um arquivo HTML que é aberto no seu browser padrão:</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/graficotres.jpg" alt="alt text"></p>
+<p>Vamos olhar agora os salários dos melhores clubes através de um boxplot. Para este gráfico usaremos a biblioteca seaborn, que é outra poderosa ferramenta de visualização em Python. Lembra de como funciona um boxplot? Ele é um retângulo com duas retas, uma na parte superior indicando o valor máximo e outra na parte inferior, referente ao valor mínimo. O retângulo é formado por três quartis. Da uma olhada na figura abaixo para ver como os dados são distribuídos em um boxplot:</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/graficocinco.jpg" alt="alt text"></p>
+<p>Vamos agora construir nosso boxplot usando a biblioteca seaborn, que importamos no início do código como sns.</p>
+<pre><code class="language-{python}" data-lang="{python}">#box plot para analisar salarios dos melhores clubs
+
+sns.set(style=&quot;whitegrid&quot;, color_codes=True)
+sns.boxplot(x=&quot;Club&quot;, y=&quot;salario&quot;, hue=&quot;Club&quot;, data=melhoresClubs, palette=&quot;PRGn&quot;)
+sns.despine(offset=10, trim=True)
+</code></pre><p>Tem como output o seguinte gráfico:</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/graficoseis.jpg" alt="alt text"></p>
+<p>Como era de se esperar, a distribuição dos dados mostra alguns valores outliers, que certamente são os salários e grandes estrelas como Neymar, Messi e Cristiano Ronaldo.</p>
+<p>No último passo na parte de visualização, vamos voltar a questão da descoberta dos melhores times. No começo deste artigo fizemos a média de Overall por clube mas chegamos a conclusão que não foi uma forma muito confiável, por conta da presença de outliers. Vamos então mudar de estratégia:</p>
+<pre><code class="language-{python}" data-lang="{python}">best = data[data['Overall']&gt; 85]
+grouped = best.groupby('Club')
+count_by_club = grouped.count()['Name'].sort_values(ascending = False)
+ax = sns.countplot(x = 'Club', data = best, order = count_by_club.index)
+ax.set_xticklabels(labels = count_by_club.index, rotation='vertical')
+ax.set_ylabel('Numero de jogadores')
+ax.set_xlabel('Clube')
+ax.set_title('Clubes com os melhores jogadores')
+</code></pre><p>A primeira coisa que fizemos no código acima foi criar um novo dataframe somente com os jogadores com Overall maior que 85. Em seguida agrupamos esses jogadores por clube e contamos quantos atletas cada clube possui. Com isso chegamos em uma lista dos clubes que possuem maior quantidade de jogadores com avaliação alta (escolhi Overall acima de 85 aleatoriamente). Por fim, plotamos o resultado através da biblioteca seaborn, passando os parâmetros solicitados pelas funções. Obtivemos o seguindo gráfico:</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/graficosete.jpg" alt="alt text"></p>
+<h2 id="correlações">Correlações</h2>
+<p>E como última etapa deste tutorial, vamos analisar algumas correlações. É importante lembrar que a existência de uma correlação significativa entre duas variáveis, não implica necessariamente em uma relação de causalidade entre elas. Uma correlação indica um ponto a ser estudado com maior rigor científico para comprovar ou não um vínculo de causa e efeito. A imagem abaixo demonstra as possíveis relações entre duas variáveis, onde r é o valor da correlação.</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/graficooito.jpg" alt="alt text"></p>
+<p>Para analisar as correlações no Python faremos uso da função corr(), do Pandas, para calcular os valores de r e também usaremos a função heatmap(), da seaborn, para visualizar os valores de forma mais amigável. Porém, antes vamos criar um novo data frame, contendo somente as colunas mais interessantes para se analisar as correlações. Lembrando que o dataframe principal possui mais de 70 atributos. Seria inviável e visualmente nada agradável analisar tantas variáveis.</p>
+<pre><code class="language-{python}" data-lang="{python}">#criando um novo dataset com os atributos que se deseja avaliar a correlação
+analise = data.loc[:,['Age','Overall', 'Potential','salario', 'Agility', 'Finishing', 'Acceleration','Ball control','Free kick accuracy','Jumping', 'Long passing' ]]
+
+#fazendo a matriz de correlação
+corr = analise.corr()
+
+#plotando a matriz de correlação
+ax = sns.heatmap(corr, xticklabels=corr.columns.values, yticklabels=corr.columns.values,
+linewidths=0.25, vmax=1.0, square=True, cmap = 'PuBu', linecolor='black', annot=False)
+</code></pre><p>Ao executar o código acima, obtemos a seguinte matriz:</p>
+<p><img src="https://gabrielosluz.github.io/data-eng/images/fifa/graficonovo.jpg" alt="alt text"></p>
+<p>Lembrando que precisamos ignorar a diagonal principal, pois se trata da relação de uma variável com si mesma. A partir da última imagem podemos comprovar diversas relações intuitivas, como Idade e Overall e Aceleração e Agilidade.
+E esse foi o tutorial de hoje pessoal, o mais simples que já fiz até agora. Espero que tenham curtido. Qualquer dúvida não deixem de entrar em contato comigo.</p>
+<p>Abraço</p>
+<h2 id="referências">Referências</h2>
+<p>Galera, como de costume usei as seguintes referências para este artigo:</p>
+<ul>
+<li>Os cursos da Formação Cientista de Dados da <a href="https://www.datascienceacademy.com.br/?msg=not-logged-in">Data Science Academy</a>.</li>
+<li>O sensacional blog <a href="https://minerandodados.com.br/">Minerando Dados</a>. Se você curte Data Science, não deixe de acompanhar o que essa galera posta lá.</li>
+<li>Projeto do nosso amigo de Hong Kong lá no <a href="https://www.kaggle.com/laowingkin/fifa-18-find-the-best-squad">Kaggle</a>.</li>
+</ul>
+<p><a href="https://github.com/gabrielosluz/analise_exploratoria_fifa18">Link do código no Github</a></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://gabrielosluz.github.io/data-eng/" >
+    &copy;  Home 2020 
+  </a>
+    <div>
+
+
+
+
+<a href="https://twitter.com/GoHugoIO" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+<a href="https://www.linkedin.com/in/gabriel-luz/" target="_blank" class="link-transition linkedin link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" rel="noopener" aria-label="follow on LinkedIn——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://github.com/gabrielosluz" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+<a href="https://medium.com/mundo-ia" target="_blank" class="link-transition medium link dib z-999 pt3 pt0-l mr1" title="Medium link" rel="noopener" aria-label="follow on Medium——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 170 170;" version="1.1" viewBox="0 0 170 170" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M46.5340803,65.2157554 C46.6968378,63.6076572 46.0836,62.018231 44.8828198,60.93592 L32.6512605,46.2010582 L32.6512605,44 L70.6302521,44 L99.9859944,108.380952 L125.794585,44 L162,44 L162,46.2010582 L151.542017,56.2281011 C150.640424,56.9153477 150.193188,58.0448862 150.380019,59.1628454 L150.380019,132.837155 C150.193188,133.955114 150.640424,135.084652 151.542017,135.771899 L161.755369,145.798942 L161.755369,148 L110.38282,148 L110.38282,145.798942 L120.963119,135.527337 C122.002801,134.487948 122.002801,134.182246 122.002801,132.592593 L122.002801,73.0417402 L92.585901,147.755438 L88.6106443,147.755438 L54.3622782,73.0417402 L54.3622782,123.115814 C54.0767278,125.221069 54.7759199,127.3406 56.2581699,128.863022 L70.0186741,145.55438 L70.0186741,147.755438 L31,147.755438 L31,145.55438 L44.7605042,128.863022 C46.2319621,127.338076 46.8903838,125.204485 46.5340803,123.115814 L46.5340803,65.2157554 Z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="https://gabrielosluz.github.io/data-eng/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

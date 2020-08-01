@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gabriel Luz on Home</title>
+    <link>https://gabrielosluz.github.io/data-eng/</link>
+    <description>Recent content in Gabriel Luz on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <lastBuildDate>Fri, 14 Apr 2017 11:25:05 -0400</lastBuildDate>
+    
+	<atom:link href="https://gabrielosluz.github.io/data-eng/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Como participar de uma competição de Machine Learning</title>
+      <link>https://gabrielosluz.github.io/data-eng/post/projeto3/</link>
+      <pubDate>Fri, 14 Apr 2017 11:25:05 -0400</pubDate>
+      
+      <guid>https://gabrielosluz.github.io/data-eng/post/projeto3/</guid>
+      <description>Poor Gringoire! the din of all the great double petards of the Saint-Jean, the discharge of twenty arquebuses on supports, the detonation of that famous serpentine of the Tower of Billy, which, during the siege of Paris.</description>
+    </item>
+    
+    <item>
+      <title>O que é Machine Learning?</title>
+      <link>https://gabrielosluz.github.io/data-eng/post/projeto2/</link>
+      <pubDate>Mon, 10 Apr 2017 11:00:59 -0400</pubDate>
+      
+      <guid>https://gabrielosluz.github.io/data-eng/post/projeto2/</guid>
+      <description>Nevertheless, as be harangued them, the satisfaction and admiration unanimously excited by his costume were dissipated by his words; and when he reached that untoward conclusion: “As soon as his illustrious eminence, the cardinal, arrives, we will begin,” his voice was drowned in a thunder of hooting.</description>
+    </item>
+    
+    <item>
+      <title>Análise Exploratória de Dados com Python: Extraindo insights do FIFA 18</title>
+      <link>https://gabrielosluz.github.io/data-eng/post/projeto1/</link>
+      <pubDate>Sun, 09 Apr 2017 10:58:08 -0400</pubDate>
+      
+      <guid>https://gabrielosluz.github.io/data-eng/post/projeto1/</guid>
+      <description>Olá, bem vindo!
+Neste artigo vamos aprender a fazer uma tarefa muito importante no dia-a-dia de um Cientista de Dados. Faremos uma Análise Exploratória de Dados (do inglês, EDA). Para isso vamos fazer uso da linguagem de programação Python, através da distribuição Anaconda e da IDE Spyder.
+Introdução Antes de mais nada, vamos definir o que exatamente é essa tal de EDA e por que, no meio de tantas coisas legais para se fazer com Machine Learning estamos nos preocupando com isso.</description>
+    </item>
+    
+    <item>
+      <title>Contato</title>
+      <link>https://gabrielosluz.github.io/data-eng/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gabrielosluz.github.io/data-eng/contact/</guid>
+      <description>   Entre em contato através dos links!      E-mail: gabrielosluz@gmail.com   LinkedIn: https://www.linkedin.com/in/gabriel-luz/   Medium: https://medium.com/mundo-ia   GitHub: https://github.com/gabrielosluz/    </description>
+    </item>
+    
+  </channel>
+</rss>
